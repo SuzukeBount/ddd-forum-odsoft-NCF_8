@@ -14,7 +14,7 @@ import { stringify } from "yaml";
 
 import https from "https";
 
-import ConfigHandler from "../config/ConfigHandler";
+import ConfigHandler from "../config/configHandler";
 
 const config = ConfigHandler.getInstance();
 const log = new Logger({
@@ -24,6 +24,12 @@ const log = new Logger({
     Intl.DateTimeFormat().resolvedOptions().timeZone,
 });
 
+/**
+ * Checks if a property is set.
+ *
+ * @param {any} property - The property to check.
+ * @return {boolean} Returns `true` if the property is not `undefined` and not `null`, otherwise `false`.
+ */
 function isSet(property): boolean {
   return property !== undefined && property !== null;
 }
@@ -33,6 +39,11 @@ export class RestClient {
 
   private axiosInstance: AxiosInstance;
 
+  /**
+   * Constructs a new instance of the class.
+   *
+   * @param {string} baseUrl - The base URL for the axios instance.
+   */
   constructor(baseUrl: string) {
     this.axiosInstance = axios.create({ baseURL: baseUrl });
   }
@@ -47,6 +58,19 @@ export class RestClient {
     requestHeaders["Authorization"] = `asdf`;
   }
 
+  /**
+   * Calls an API endpoint using Axios.
+   *
+   * @param {IAxiosCallEndpointArgs} args - The arguments for the API call.
+   * @param {string} args.route - The route of the API endpoint.
+   * @param {string} args.method - The HTTP method of the API call.
+   * @param {string} args.authToken - The authentication token for the API call.
+   * @param {Object} args.headers - The headers for the API call.
+   * @param {Object} args.data - The data to be sent in the request body.
+   * @param {Object} args.additionalConfigs - Additional configurations for the API call.
+   * @param {Object} args.params - The URL parameters for the API call.
+   * @return {Promise<AxiosResponse>} A Promise that resolves to the Axios response.
+   */
   public async callEndpoint({
     route,
     method,
@@ -116,6 +140,18 @@ export class RestClient {
     return response;
   }
 
+  /**
+   * Sends a POST request to the specified route with the provided data and configurations.
+   *
+   * @param {IAxiosHttpRequestArgs} args - The arguments for the POST request.
+   * @param {string} args.route - The route to send the POST request to.
+   * @param {string} args.authToken - The authentication token for the request.
+   * @param {any} args.data - The data to send in the request body.
+   * @param {object} args.params - The query parameters for the request.
+   * @param {object} args.headers - The headers for the request.
+   * @param {object} args.additionalConfigs - Additional configurations for the request.
+   * @return {Promise<any>} A promise that resolves with the response from the server.
+   */
   public async sendPost({
     route,
     authToken,
@@ -135,6 +171,17 @@ export class RestClient {
     });
   }
 
+  /**
+   * Sends a GET request to the specified route.
+   *
+   * @param {IAxiosHttpRequestArgs} args - The arguments for the GET request.
+   * @param {string} args.route - The route to send the GET request to.
+   * @param {string} args.authToken - The authentication token for the request.
+   * @param {object} args.params - The query parameters for the request.
+   * @param {object} args.headers - The headers for the request.
+   * @param {object} args.additionalConfigs - Additional configurations for the request.
+   * @return {Promise<any>} - A promise that resolves with the response data from the request.
+   */
   public async sendGet({
     route,
     authToken,
@@ -152,6 +199,17 @@ export class RestClient {
     });
   }
 
+  /**
+   * Sends a DELETE request to the specified endpoint.
+   *
+   * @param {IAxiosHttpRequestArgs} requestArgs - The arguments for the request.
+   * @param {string} requestArgs.route - The route of the endpoint.
+   * @param {string} requestArgs.authToken - The authentication token.
+   * @param {object} requestArgs.params - The request parameters.
+   * @param {object} requestArgs.headers - The request headers.
+   * @param {object} requestArgs.additionalConfigs - Additional configurations for the request.
+   * @return {Promise<any>} A promise that resolves with the response data.
+   */
   public async sendDelete({
     route,
     authToken,
@@ -169,6 +227,17 @@ export class RestClient {
     });
   }
 
+  /**
+   * Sends a PATCH request to the specified route with the provided data and headers.
+   *
+   * @param {IAxiosHttpRequestArgs} requestArgs - The arguments for the request.
+   *    - route: The route to send the request to.
+   *    - authToken: The authentication token to include in the request headers.
+   *    - data: The data to send with the request.
+   *    - headers: The headers to include in the request.
+   *    - additionalConfigs: Additional configurations for the request.
+   * @return {Promise<any>} A promise that resolves with the response from the server.
+   */
   public async sendPatch({
     route,
     authToken,
@@ -186,6 +255,18 @@ export class RestClient {
     });
   }
 
+  /**
+   * Sends a PUT request to the specified route with the provided data and headers.
+   *
+   * @param {IAxiosHttpRequestArgs} options - The options for the PUT request.
+   * @param {string} options.route - The route to send the PUT request to.
+   * @param {string} options.authToken - The authentication token for the request.
+   * @param {any} options.data - The data to send with the request.
+   * @param {object} options.headers - The headers for the request.
+   * @param {object} options.additionalConfigs - Additional configurations for the request.
+   *
+   * @returns {Promise<any>} A promise that resolves with the response data.
+   */
   public async sendPut({
     route,
     authToken,
@@ -203,6 +284,17 @@ export class RestClient {
     });
   }
 
+  /**
+   * Prepares a log record for an Axios call endpoint.
+   *
+   * @param {IAxiosCallEndpointArgs} route - The route of the endpoint.
+   * @param {IAxiosCallEndpointArgs} method - The method of the endpoint.
+   * @param {IAxiosCallEndpointArgs} headers - The headers of the request.
+   * @param {IAxiosCallEndpointArgs} data - The data of the request.
+   * @param {IAxiosCallEndpointArgs} additionalConfigs - Additional configurations for the request.
+   * @param {IAxiosCallEndpointArgs} params - The parameters of the request.
+   * @return {string} The prepared log record.
+   */
   private static prepareLogRecord({
     route,
     method,
