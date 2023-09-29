@@ -19,10 +19,22 @@ export interface ICommentService {
 
 export class CommentService extends BaseAPI implements ICommentService {
 
+  /**
+   * Constructs a new instance of the class.
+   *
+   * @param {IAuthService} authService - The authentication service to use.
+   */
   constructor (authService: IAuthService) {
     super(authService);
   }
 
+  /**
+   * Creates a reply to a post.
+   *
+   * @param {string} comment - The comment for the reply.
+   * @param {string} slug - The slug of the post.
+   * @return {Promise<APIResponse<void>>} A Promise that resolves to the API response.
+   */
   async createReplyToPost (comment: string, slug: string): Promise<APIResponse<void>> {
     try {
       await this.post('/comments', { comment }, { slug }, { 
@@ -34,6 +46,14 @@ export class CommentService extends BaseAPI implements ICommentService {
     }
   }
 
+  /**
+   * Create a reply to a comment.
+   *
+   * @param {string} comment - The reply comment.
+   * @param {string} parentCommentId - The ID of the parent comment.
+   * @param {string} slug - The slug of the article.
+   * @return {Promise<APIResponse<void>>} The API response indicating success or failure.
+   */
   async createReplyToComment (comment: string, parentCommentId: string, slug: string): Promise<APIResponse<void>> {
     try {
       await this.post(`/comments/${parentCommentId}/reply`, { comment }, { slug }, { 
@@ -45,6 +65,13 @@ export class CommentService extends BaseAPI implements ICommentService {
     }
   }
 
+  /**
+   * Retrieves comments by slug.
+   *
+   * @param {string} slug - The slug of the comments.
+   * @param {number} offset - The offset of the comments.
+   * @return {Promise<APIResponse<Comment[]>>} A promise that resolves to an API response containing an array of comments.
+   */
   async getCommentsBySlug (slug: string, offset?: number): Promise<APIResponse<Comment[]>> {
     try {
       const accessToken = this.authService.getToken('access-token');
@@ -65,6 +92,12 @@ export class CommentService extends BaseAPI implements ICommentService {
     }
   }
 
+  /**
+   * Retrieves a comment by its comment ID.
+   *
+   * @param {string} commentId - The ID of the comment to retrieve.
+   * @return {Promise<APIResponse<Comment>>} A promise that resolves to the API response containing the retrieved comment.
+   */
   async getCommentByCommentId (commentId: string): Promise<APIResponse<Comment>> {
     try {
       const accessToken = this.authService.getToken('access-token');
@@ -82,6 +115,12 @@ export class CommentService extends BaseAPI implements ICommentService {
     }
   }
 
+  /**
+   * Upvotes a comment.
+   *
+   * @param {string} commentId - The ID of the comment to upvote.
+   * @returns {Promise<APIResponse<void>>} A Promise that resolves with the API response.
+   */
   async upvoteComment (commentId: string): Promise<APIResponse<void>> {
     try {
       await this.post(`/comments/${commentId}/upvote`, null, null, { 
@@ -93,6 +132,12 @@ export class CommentService extends BaseAPI implements ICommentService {
     }
   }
 
+  /**
+   * Downvotes a comment.
+   *
+   * @param {string} commentId - The ID of the comment to downvote.
+   * @return {Promise<APIResponse<void>>} A Promise that resolves to the API response.
+   */
   async downvoteComment (commentId: string): Promise<APIResponse<void>> {
     try {
       await this.post(`/comments/${commentId}/downvote`, null, null, { 

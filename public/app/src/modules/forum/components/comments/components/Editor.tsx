@@ -18,6 +18,11 @@ class Editor extends React.Component<EditorProps, EditorState> {
   public quillRef: any;
   public reactQuillRef: any;
 
+  /**
+   * Constructor for the Editor class.
+   *
+   * @param {EditorProps} props - The props object containing the initial state of the Editor.
+   */
   constructor (props: EditorProps) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
@@ -25,10 +30,24 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.reactQuillRef = null;
   }
 
+  /**
+   * Component lifecycle method that is called after the component is mounted
+   * onto the DOM. It attaches the Quill refs.
+   *
+   * @param {void} None
+   * @return {void} None
+   */
   componentDidMount() {
     this.attachQuillRefs()
   }
 
+  /**
+   * Updates the component after a re-render.
+   *
+   * No parameters.
+   *
+   * No return value.
+   */
   componentDidUpdate() {
     this.attachQuillRefs()
   }
@@ -38,6 +57,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.quillRef = this.reactQuillRef.getEditor();
   }
 
+  /**
+   * Handles the change event of the input field.
+   *
+   * @param {string} html - The HTML content of the input field.
+   * @return {void}
+   */
   handleChange (html: string) {
     var limit = this.props.maxLength;
     var quill = this.quillRef;
@@ -51,6 +76,11 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.props.handleChange(html);
   }
 
+  /**
+   * Renders the component.
+   *
+   * @return {JSX.Element} The rendered component.
+   */
   render () {
     const { text } = this.props;
     return (

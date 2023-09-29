@@ -1,3 +1,12 @@
 plugins {
   id "com.github.node-gradle.node" version "7.0.0"
 }
+
+task docksGeneration(type: NodeTask) {
+    script = ""
+}
+
+
+task generatePlantUML(type: NodeTask) {
+    script = file('path/to/your/plantuml/script.js') // Specify the path to your PlantUML script
+}

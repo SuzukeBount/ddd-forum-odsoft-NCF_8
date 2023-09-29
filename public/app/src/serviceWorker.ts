@@ -25,6 +25,12 @@ type Config = {
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 };
 
+/**
+ * Registers a service worker if the environment is production and the browser supports service workers.
+ *
+ * @param {Config} [config] - Optional configuration object.
+ * @return {void}
+ */
 export function register(config?: Config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -62,6 +68,13 @@ export function register(config?: Config) {
   }
 }
 
+/**
+ * Registers a service worker with the given URL and optional configuration.
+ *
+ * @param {string} swUrl - The URL of the service worker.
+ * @param {Config} [config] - Optional configuration object.
+ * @return {void}
+ */
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
@@ -106,6 +119,13 @@ function registerValidSW(swUrl: string, config?: Config) {
     });
 }
 
+/**
+ * Check if the service worker can be found. If it can't reload the page.
+ *
+ * @param {string} swUrl - The URL of the service worker.
+ * @param {Config} config - Optional configuration object.
+ * @return {void} This function does not return anything.
+ */
 function checkValidServiceWorker(swUrl: string, config?: Config) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
@@ -134,6 +154,11 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
     });
 }
 
+/**
+ * Unregisters the service worker if it exists.
+ *
+ * @return {void} Nothing is returned.
+ */
 export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {

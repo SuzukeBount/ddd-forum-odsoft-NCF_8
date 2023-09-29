@@ -12,6 +12,12 @@ export class PostUtil {
   public static maxLinkLength: number = 500;
   public static minLinkLength: number = 8;
 
+  /**
+   * Compute the updated post after an upvote.
+   *
+   * @param {Post} post - The post object to compute the updated post for.
+   * @return {Post} - The updated post object.
+   */
   public static computePostAfterUpvote (post: Post): Post {
     return {
       ...post,
@@ -20,6 +26,12 @@ export class PostUtil {
     } 
   }
 
+  /**
+   * Computes the updated post object after a downvote.
+   *
+   * @param {Post} post - The original post object.
+   * @return {Post} - The updated post object.
+   */
   public static computePostAfterDownvote (post: Post): Post {
     return {
       ...post,
@@ -28,6 +40,12 @@ export class PostUtil {
     } 
   }
 
+  /**
+   * Converts a PostDTO object to a Post object in the view model.
+   *
+   * @param {PostDTO} dto - The PostDTO object to be converted.
+   * @return {Post} The converted Post object in the view model.
+   */
   public static toViewModel (dto: PostDTO): Post {
     return {
       slug: dto.slug,

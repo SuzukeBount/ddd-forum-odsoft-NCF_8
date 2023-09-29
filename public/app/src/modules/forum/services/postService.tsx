@@ -19,10 +19,21 @@ export interface IPostService {
 
 export class PostService extends BaseAPI implements IPostService {
 
+  /**
+   * Initializes a new instance of the constructor.
+   *
+   * @param {IAuthService} authService - The authentication service.
+   */
   constructor (authService: IAuthService) {
     super(authService);
   }
 
+/**
+ * Retrieves a post by its slug.
+ *
+ * @param {string} slug - The slug of the post.
+ * @return {Promise<APIResponse<Post>>} A Promise that resolves to the API response containing the post.
+ */
   public async getPostBySlug (slug: string): Promise<APIResponse<Post>> {
     try {
       const accessToken = this.authService.getToken('access-token');
@@ -43,6 +54,12 @@ export class PostService extends BaseAPI implements IPostService {
     }
   }
 
+  /**
+   * Retrieves the recent posts from the API.
+   *
+   * @param {number} offset - The number of posts to skip from the beginning.
+   * @return {Promise<APIResponse<Post[]>>} A promise that resolves to the API response containing an array of recent posts.
+   */
   public async getRecentPosts (offset?: number): Promise<APIResponse<Post[]>> {
     try {
       const accessToken = this.authService.getToken('access-token');
@@ -63,6 +80,12 @@ export class PostService extends BaseAPI implements IPostService {
     }
   }
 
+  /**
+   * Retrieves popular posts from the API.
+   *
+   * @param {number} offset - The offset value for pagination (optional).
+   * @return {Promise<APIResponse<Post[]>>} A Promise that resolves to an APIResponse containing an array of Post objects.
+   */
   public async getPopularPosts (offset?: number): Promise<APIResponse<Post[]>> {
     try {
       const accessToken = this.authService.getToken('access-token');
@@ -82,6 +105,15 @@ export class PostService extends BaseAPI implements IPostService {
     }
   }
 
+  /**
+   * Creates a new post.
+   *
+   * @param {string} title - The title of the post.
+   * @param {PostType} type - The type of the post.
+   * @param {string} [text] - The text content of the post (optional).
+   * @param {string} [link] - The link of the post (optional).
+   * @return {Promise<APIResponse<void>>} A promise that resolves to the API response.
+   */
   public async createPost (title: string, type: PostType, text?: string, link?: string): Promise<APIResponse<void>> {
     try {
       await this.post('/posts', { title, postType: type, text, link }, null, { 
@@ -93,6 +125,12 @@ export class PostService extends BaseAPI implements IPostService {
     }
   }
 
+  /**
+   * Upvotes a post.
+   *
+   * @param {string} slug - The slug of the post to upvote.
+   * @return {Promise<APIResponse<void>>} A promise that resolves to the API response.
+   */
   async upvotePost (slug: string): Promise<APIResponse<void>> {
     try {
       await this.post('/posts/upvote', { slug }, null, { 
@@ -104,6 +142,12 @@ export class PostService extends BaseAPI implements IPostService {
     }
   }
 
+  /**
+   * Downvotes a post.
+   *
+   * @param {string} slug - The slug of the post.
+   * @return {Promise<APIResponse<void>>} A promise that resolves to an APIResponse with a void return value.
+   */
   async downvotePost (slug: string): Promise<APIResponse<void>> {
     try {
       await this.post('/posts/downvote', { slug }, null, { 
