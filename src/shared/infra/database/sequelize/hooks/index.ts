@@ -28,7 +28,7 @@ const dispatchEventsCallback = (model: any, primaryKeyField: string) => {
   Post.addHook('afterUpdate', (m: any) => dispatchEventsCallback(m, 'post_id'));
   Post.addHook('afterSave', (m: any) => dispatchEventsCallback(m, 'post_id'));
   Post.addHook('afterUpsert', (m: any) => dispatchEventsCallback(m, 'post_id'));
-
+  
   console.log('[Hooks]: Sequelize hooks setup.')
 
 
