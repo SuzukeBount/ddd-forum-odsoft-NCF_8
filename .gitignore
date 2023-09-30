@@ -9,3 +9,14 @@ npm-debug.log
 /coverage
 report.html
  
+*.properties
+*.lock
+*.bin
+*.lock
+*.lock
+*.properties
+*.json
+*.lock
+*.properties
+.gradle/buildOutputCleanup/cache.properties
+.gradle/buildOutputCleanup/buildOutputCleanup.lock

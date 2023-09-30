@@ -2,11 +2,8 @@ plugins {
   id "com.github.node-gradle.node" version "7.0.0"
 }
 
-task docksGeneration(type: NodeTask) {
-    script = ""
+task runBatchUMLScript(type: Exec) {
+    def scriptPath = file(project.projectDir.toString() + '/bin/generate-plantuml-diagrams.bat')
+    commandLine 'cmd', '/c', scriptPath
 }
 
-
-task generatePlantUML(type: NodeTask) {
-    script = file('path/to/your/plantuml/script.js') // Specify the path to your PlantUML script
-}
