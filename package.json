@@ -25,7 +25,8 @@
     "test:dev": "jest --watchAll",
     "testWithCoverage": "jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\"",
     "test:api": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"html\" --runInBand --testPathPattern=api",
-    "runUMLscript": "gradle runBatchUMLScript"
+    "runUMLscript": "gradle runBatchUMLScript",
+    "jsdoc": "jsdoc -c jsdoc.json"
   },
   "husky": {
     "hooks": {

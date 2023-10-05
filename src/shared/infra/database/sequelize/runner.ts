@@ -1,4 +1,10 @@
 
+/**
+ * Runs a series of promises, catching and handling specific errors.
+ *
+ * @param {Array<Function>} promises - An array of promise functions to run.
+ * @return {Promise<void>} - A promise that resolves when all the promises have been executed.
+ */
 async function runner (promises) {
   for (let command of promises) {
     try {
