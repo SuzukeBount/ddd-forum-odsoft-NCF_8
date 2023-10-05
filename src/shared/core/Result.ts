@@ -51,32 +51,16 @@ export class Result<T> {
     return this.error as T;
   }
 
-  /**
-   * Create a new Result object with a successful value.
-   *
-   * @param {U} value - The value to be wrapped in the Result object.
-   * @return {Result<U>} The newly created Result object.
-   */
   public static ok<U> (value?: U) : Result<U> {
     return new Result<U>(true, null, value);
   }
 
-  /**
-   * A function that creates a new Result object with a failure status and an error message.
-   *
-   * @param {string} error - The error message for the failure.
-   * @return {Result<U>} - The new Result object with a failure status and the given error message.
-   */
+
   public static fail<U> (error: string): Result<U> {
     return new Result<U>(false, error);
   }
 
-  /**
-   * Combines an array of Result objects into a single Result object.
-   *
-   * @param {Result<any>[]} results - The array of Result objects to combine.
-   * @return {Result<any>} - The combined Result object.
-   */
+ 
   public static combine (results: Result<any>[]) : Result<any> {
     for (let result of results) {
       if (result.isFailure) return result;
