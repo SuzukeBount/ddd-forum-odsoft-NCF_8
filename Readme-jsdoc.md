@@ -95,6 +95,7 @@ A ferramenta do JSDoc vai ser executada com a configuração indicaca anteriorme
 <br>
 <br>
 <br>
+
 # Gradle task
 
 A seguinte tarefa feita no gradle executa o script criado no package.json
