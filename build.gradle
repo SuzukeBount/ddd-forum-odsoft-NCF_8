@@ -24,3 +24,19 @@ task jsdoc(type: NpmTask) {
     
     args = ['run', 'jsdoc']
 }
+
+task runUnitTests(type: NpmTask) {
+    args = ['run', 'test']
+}
+
+task generateUnitTestsCoverageReport(type: NpmTask) {
+    args = ['run', 'test:dev']
+}
+
+task runAPITests(type: NpmTask) {
+    args = ['run', 'testWithCoverage']
+}
+
+task generateAPITestsCoverageReport(type: NpmTask) {
+    args = ['run', 'test:api']
+}

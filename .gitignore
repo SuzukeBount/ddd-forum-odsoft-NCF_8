@@ -12,12 +12,11 @@ report.html
 *.properties
 *.lock
 *.bin
-*.lock
-*.lock
-*.properties
 *.json
-*.lock
-*.properties
 .gradle/buildOutputCleanup/cache.properties
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
 /.gradle
+.vscode/settings.json
+.gradle/buildOutputCleanup/cache.properties
+.gradle/8.3/gc.properties
+.gradle/8.3/fileHashes/fileHashes.lock

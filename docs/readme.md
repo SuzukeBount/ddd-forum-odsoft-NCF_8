@@ -34,6 +34,9 @@ was carried out as described in the following table.
 | Architecture                | [all](project/global-artifacts/00.architecture/architecture.md)                            |
 | Use Case Diagram (UCD)      | [all](project/global-artifacts/01.requirements-engineering/use-case-diagram.md)            |
 | Supplementary Specification | [all](project/global-artifacts/01.requirements-engineering/supplementary-specification.md) |
-| US 001 (SDP Activities)     | [1XXXXXX](project/us001/02.requirements-engineering/readme.md)                                                         |
-| JSDoc Automation            | [1230199](/Readme-jsdoc.md)                                                         |
-| PlantUML Automation         | [1230207](/Readme-PlantUML.md)                                                         |
+| US 001 (SDP Activities)     | [1XXXXXX](project/us001/02.requirements-engineering/readme.md)                             |
+| ...                         | ...                                                                                        |
+| US 002 (SDP Activities)     | [1230207](project/us001/02.requirements-engineering/readme.md)                        |
+| JSDoc Automation            | [1230199](Readme-jsdoc.md)                                                                 |
+| PlantUML Automation         | [1230207](Readme-PlantUML.md)                                                              |
+| Tests Automation            | [1230207](Readme-tests.md)                                                                 |

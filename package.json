@@ -21,12 +21,12 @@
     "start:both": "concurrently --kill-others-on-fail \"npm run start:dev\" \"npm run  start:public\"",
     "prestart": "npm run migrate:prod",
     "start": "node dist/index",
-    "test": "jest",
-    "test:dev": "jest --watchAll",
-    "testWithCoverage": "jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\"",
-    "test:api": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"html\" --runInBand --testPathPattern=api",
     "runUMLscript": "gradle runBatchUMLScript",
-    "jsdoc": "jsdoc -c jsdoc.json"
+    "jsdoc": "jsdoc -c jsdoc.json",
+    "test": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest",
+    "test:dev": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --watchAll",
+    "testWithCoverage": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\"",
+    "test:api": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"html\" --runInBand --testPathPattern=api"
   },
   "husky": {
     "hooks": {
