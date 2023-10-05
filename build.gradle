@@ -13,6 +13,13 @@ node {
     version = "12.22.12"
 }
 
+task build(type: NpmTask) {
+    println "Build Task"
+    dependsOn npm_install
+    
+    args = ['run', 'build']
+}
+
 task jsdoc(type: NpmTask) {
     println "jsdoc Task"
     dependsOn npm_install

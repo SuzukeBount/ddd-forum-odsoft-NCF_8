@@ -12,7 +12,7 @@
     "plugins": ["plugins/markdown"],
     "templates": {
       "better-docs": {
-        "name": "Your App Name"
+        "name": "ddd-forum-odsoft-ncf_8"
       }
     },
     "opts": {
