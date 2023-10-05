@@ -9,6 +9,7 @@ npm-debug.log
 /coverage
 report.html
  
+ /.gradle
 .vscode/settings.json
 .gradle/buildOutputCleanup/cache.properties
 .gradle/8.3/gc.properties

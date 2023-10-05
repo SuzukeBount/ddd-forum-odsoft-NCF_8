@@ -2,30 +2,18 @@ plugins {
   id "com.github.node-gradle.node" version "7.0.0"
 }
 
-task runUnitTests(type: Exec) {
-    commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest"
+task runUnitTests(type: NpmTask) {
+    args = ['run', 'test']
 }
 
-task generateUnitTestsCoverageReport(type: Exec) {
-    commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --watchAll"
+task generateUnitTestsCoverageReport(type: NpmTask) {
+    args = ['run', 'test:dev']
 }
 
 task runAPITests(type: Exec) {
-  commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\""
-  doLast {
-        // Here, we simulate pressing 'q' and then Enter to exit Jest
-        def process = java.lang.ProcessBuilder.start()
-        def outputStream = process.getOutputStream()
-
-        outputStream.write('q\n'.getBytes())
-        outputStream.flush()
-        outputStream.close()
-
-        // Wait for the process to finish
-        process.waitFor()
-    }
+    args = ['run', 'testWithCoverage']
 }
 
 task generateAPITestsCoverageReport(type: Exec) {
-    commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"html\" --runInBand --testPathPattern=api"
+    args = ['run', 'test:api']
 }
