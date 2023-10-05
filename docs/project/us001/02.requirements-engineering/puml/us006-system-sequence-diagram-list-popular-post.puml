@@ -1,0 +1,29 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - List Popular Post
+
+autonumber
+
+actor "Member" as Employee
+participant ":System" as System
+
+activate Employee
+
+Employee -> System : asks to list the posts
+    activate System
+
+        System --> Employee : displays the list of posts
+    deactivate System
+
+    Employee -> System : asks to present in order of popularity
+    activate System
+
+        System --> System : sorts the list of posts in order of popularity
+            System -> Employee : display the list of most popular posts
+    deactivate System
+
+
+@enduml
