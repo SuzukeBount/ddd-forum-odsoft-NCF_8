@@ -21,10 +21,10 @@
     "start:both": "concurrently --kill-others-on-fail \"npm run start:dev\" \"npm run  start:public\"",
     "prestart": "npm run migrate:prod",
     "start": "node dist/index",
-    "test": "jest",
-    "test:dev": "jest --watchAll",
-    "testWithCoverage": "jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\"",
-    "test:api": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"html\" --runInBand --testPathPattern=api"
+    "test": "gradle runUnitTests",
+    "test:dev": "gradle generateUnitTestsCoverageReport",
+    "testWithCoverage": "gradle runAPITests",
+    "test:api": "gradle generateAPITestsCoverageReport"
   },
   "husky": {
     "hooks": {

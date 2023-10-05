@@ -9,3 +9,13 @@ npm-debug.log
 /coverage
 report.html
  
+.vscode/settings.json
+.gradle/buildOutputCleanup/cache.properties
+.gradle/8.3/gc.properties
+.gradle/8.3/fileHashes/fileHashes.lock
+*.bin
+*.lock
+*.properties
+*.lock
+*.lock
+*.properties

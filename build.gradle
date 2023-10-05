@@ -2,11 +2,30 @@ plugins {
   id "com.github.node-gradle.node" version "7.0.0"
 }
 
-task docksGeneration(type: NodeTask) {
-    script = ""
+task runUnitTests(type: Exec) {
+    commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest"
 }
 
+task generateUnitTestsCoverageReport(type: Exec) {
+    commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --watchAll"
+}
 
-task generatePlantUML(type: NodeTask) {
-    script = file('path/to/your/plantuml/script.js') // Specify the path to your PlantUML script
+task runAPITests(type: Exec) {
+  commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\""
+  doLast {
+        // Here, we simulate pressing 'q' and then Enter to exit Jest
+        def process = java.lang.ProcessBuilder.start()
+        def outputStream = process.getOutputStream()
+
+        outputStream.write('q\n'.getBytes())
+        outputStream.flush()
+        outputStream.close()
+
+        // Wait for the process to finish
+        process.waitFor()
+    }
+}
+
+task generateAPITestsCoverageReport(type: Exec) {
+    commandLine 'cmd', '/c', "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"html\" --runInBand --testPathPattern=api"
 }

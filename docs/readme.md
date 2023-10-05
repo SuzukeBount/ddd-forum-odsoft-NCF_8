@@ -19,13 +19,9 @@ The team consists of students identified in the following table.
 
 | Student Number | Name              |
 |----------------|-------------------|
-| **1XXXXXX**    | Name of student 1 |
-| **1XXXXXX**    | Name of student 2 |
-| **1XXXXXX**    | Name of student 3 |
-| **1XXXXXX**    | Name of student 4 |
-| **1XXXXXX**    | Name of student 5 |
-| **1XXXXXX**    | Name of student 6 |
-| **1XXXXXX**    | Name of student 7 |
+| **1230207**    | Rodrigo Magalhaes |
+| **1230199**    | Miguel Ferreira   |
+
 
 ## 2. Task Distribution
 
@@ -41,3 +37,6 @@ was carried out as described in the following table.
 | Supplementary Specification | [all](project/global-artifacts/01.requirements-engineering/supplementary-specification.md) |
 | US 001 (SDP Activities)     | [1XXXXXX](project/us006/readme.md)                                                         |
 | ...                         | ...                                                                                        |
+| US 002 (SDP Activities)     | [1230207](project/us001/readme.md)                                                         |
+| JSDoc Automation            | [1230199](Readme-jsdoc.md)                                                                 |
+| PlantUML Automation         | [1230207](Readme-PlantUML.md)                                                              |
