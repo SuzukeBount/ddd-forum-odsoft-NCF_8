@@ -28,8 +28,10 @@ interface IndexPageState {
   activeFilter: PostFilterType;
 }
 
+
+
 class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
-  constructor (props: IndexPageProps) {
+  constructor(props: IndexPageProps) {
     super(props);
 
     this.state = {
@@ -37,18 +39,18 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
     }
   }
 
-  onClickJoinButton () {
+  onClickJoinButton() {
 
   }
 
-  setActiveFilter (filter: PostFilterType) {
+  setActiveFilter(filter: PostFilterType) {
     this.setState({
       ...this.state,
       activeFilter: filter
     })
   }
 
-  getPosts () {
+  getPosts() {
     const activeFilter = this.state.activeFilter;
 
     if (activeFilter === 'NEW') {
@@ -58,14 +60,14 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
     }
   }
 
-  onFilterChanged (prevState: IndexPageState) {
+  onFilterChanged(prevState: IndexPageState) {
     const currentState: IndexPageState = this.state;
     if (prevState.activeFilter !== currentState.activeFilter) {
       this.getPosts();
     }
   }
 
-  setActiveFilterOnLoad () {
+  setActiveFilterOnLoad() {
     const showNewFilter = (this.props.location.search as string).includes('show=new');
     const showPopularFilter = (this.props.location.search as string).includes('show=popular');
 
@@ -81,24 +83,29 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
     })
   }
 
-  getPostsFromActiveFilterGroup (): Post[] {
+
+  //limit to the top 5 most voted posts
+
+
+
+  getPostsFromActiveFilterGroup(): Post[] {
     if (this.state.activeFilter === 'NEW') {
       return this.props.forum.recentPosts;
     } else {
-      return this.props.forum.popularPosts;
+      return getTopFivePosts(this.props.forum.popularPosts);
     }
   }
 
-  componentDidUpdate (prevProps: IndexPageProps, prevState: IndexPageState) {
+  componentDidUpdate(prevProps: IndexPageProps, prevState: IndexPageState) {
     this.onFilterChanged(prevState)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setActiveFilterOnLoad();
     this.getPosts();
   }
 
-  render () {
+  render() {
     console.log(this.props)
     const { activeFilter } = this.state;
 
@@ -115,8 +122,8 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
             onLogout={() => this.props.logout()}
           />
         </div>
-        <br/>
-        <br/>
+        <br />
+        <br />
 
         <PostFilters
           activeFilter={activeFilter}
@@ -124,6 +131,7 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
         />
 
         {this.getPostsFromActiveFilterGroup().map((p, i) => (
+          <div key={i} style={changeBackgroundColorForToday(p.createdAt)}>
           <PostRow
             key={i}
             onUpvoteClicked={() => this.props.upvotePost(p.slug)}
@@ -131,6 +139,7 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
             isLoggedIn={this.props.users.isAuthenticated}
             {...p}
           />
+          </div>
         ))}
 
       </Layout>
@@ -138,7 +147,7 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
   }
 }
 
-function mapStateToProps ({ users, forum }: { users: UsersState, forum: ForumState }) {
+function mapStateToProps({ users, forum }: { users: UsersState, forum: ForumState }) {
   return {
     users,
     forum
@@ -158,3 +167,35 @@ export default connect(mapStateToProps, mapActionCreatorsToProps)(
     withVoting(IndexPage)
   )
 );
+
+//The top five posts ordered by upvotes
+export function getTopFivePosts(posts: Post[]) {
+  const topFivePosts = posts.sort((a, b) => {
+    return b.points - a.points;
+  }).slice(0, 5);
+  return topFivePosts;
+}
+//change background color of the posts posted today
+export function changeBackgroundColorForToday(createdDate: any): React.CSSProperties {
+  const createdAtString = createdDate;
+  const createdAt = new Date(createdAtString);
+  console.log("data criada");
+  console.log(createdDate);
+  
+  const currentDate = new Date();
+
+  if (
+    createdAt.getDate() === currentDate.getDate() &&
+    createdAt.getMonth() === currentDate.getMonth() &&
+    createdAt.getFullYear() === currentDate.getFullYear()
+  ) {
+    return {
+      backgroundColor: '#B2F77D'
+    };
+  }
+  return {
+    backgroundColor: 'white'
+  };
+
+
+}
