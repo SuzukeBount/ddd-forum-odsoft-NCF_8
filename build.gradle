@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
   id "com.github.node-gradle.node" version "7.0.0"
 }
@@ -6,9 +8,16 @@ node {
     version = "12.22.12"
 }
 
-task runBatchUMLScript(type: Exec) {
-    def scriptPath = file(project.projectDir.toString() + '/bin/generate-plantuml-diagrams.bat')
-    commandLine 'cmd', '/c', scriptPath
+task runBatchUMLScript(type: NpmTask) {
+    println "runBatchUMLScript Task"
+    dependsOn npm_install
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        args = ['run', 'runUMLscript:windows']
+    }
+    if (Os.isFamily(Os.FAMILY_UNIX)) {
+        args = ['run', 'runUMLscript:linux']  
+    }
+
 }
 
 task build(type: NpmTask) {
@@ -29,11 +38,7 @@ task runUnitTests(type: NpmTask) {
     args = ['run', 'test']
 }
 
-task generateUnitTestsCoverageReport(type: NpmTask) {
-    args = ['run', 'test:dev']
-}
-
-task runAPITests(type: NpmTask) {
+task runtestWithCoverage(type: NpmTask) {
     args = ['run', 'testWithCoverage']
 }
 
